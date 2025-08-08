@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\catDataTable;
+use App\DataTables\CategoryDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Category;
 use App\Models\Admin\Image;
@@ -9,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Services\CategoryService;
+use catDataTable as GlobalCatDataTable;
 
 class CategoryController extends Controller
 {
@@ -90,5 +93,9 @@ class CategoryController extends Controller
                 return response()->download($path, $image->image_name);
             }
         }
+    }
+
+    public function datatable(CategoryDataTable $datatable){
+        return $datatable->render('admin.category.datatable');
     }
 }

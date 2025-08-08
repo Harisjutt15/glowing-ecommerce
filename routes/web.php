@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     // return view('welcome');
-    return redirect()->route('home.index');
+    return redirect()->route('admin.dashboard');
 });
 
 
@@ -44,6 +44,7 @@ Route::group(['prefix'=> 'admin','as'=> 'admin.'], function () {
         Route::get('/categort-delete/{id}',[CategoryController::class,'delete'])->name('delete');
         Route::get('/delete-Image/{id}',[CategoryController::class,'deleteImage'])->name('deleteImage');
         Route::get('/download-Image/{id}',[CategoryController::class,'download'])->name('download');
+        Route::get('/datatable',[CategoryController::class ,'datatable'])->name('datatable');
     });
 });
 

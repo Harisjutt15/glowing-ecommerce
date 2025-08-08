@@ -20,27 +20,30 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/animate/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/slick/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/mapbox-gl/mapbox-gl.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/cdn.jsdelivr.net/npm/bootstrap-icons%401.9.1/font/bootstrap-icons.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('assets/cdn.jsdelivr.net/npm/bootstrap-icons%401.9.1/font/bootstrap-icons.css') }}">
     <link
         href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}">
 
 
-    <link rel="stylesheet" href="{{ asset('assets/cdn.jsdelivr.net/npm/select2%404.0.13/dist/css/select2.min.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('assets/cdn.jsdelivr.net/npm/select2%404.0.13/dist/css/select2.min.css') }}" />
     <link rel="stylesheet"
         href="{{ asset('assets/cdn.jsdelivr.net/npm/select2-bootstrap-5-theme%401.3.0/dist/select2-bootstrap-5-theme.min.css') }}" />
-        {{-- My --}}
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    {{-- My --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    @yield('style')
 </head>
 
 <body>
 
     <div class="wrapper dashboard-wrapper">
         <div class="d-flex flex-wrap flex-xl-nowrap">
-           {{-- mobile header --}}
-               @include('admin.headerMobile')
-          
+            {{-- mobile header --}}
+            @include('admin.headerMobile')
+
             <div class="page-content">
                 {{-- This header will display on deskto screen --}}
                 @include('admin.header')
@@ -55,7 +58,7 @@
         </div>
     </div>
 
-    @yield('script')
+
     {{-- by me --}}
     {{-- sweet alert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -88,15 +91,16 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
-    $('.select2').select2();
-    console.log('selec ff ');
-    
-});
+            $('.select2').select2();
+            // console.log('selec ff ');
+
+        });
     </script>
+        @yield('script')
     {{-- end --}}
 
 
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    {{-- <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="icon-bedroom" viewBox="0 0 46 32">
             <path
                 d="M44.421 15.217v-9.803c0-2.985-2.428-5.414-5.414-5.414h-31.82c-2.985 0-5.414 2.428-5.414 5.414v9.803c-1.080 0.86-1.775 2.185-1.775 3.67v4.872c0 2.587 2.105 4.692 4.692 4.692h2.406v1.744c0 0.997 0.808 1.805 1.805 1.805s1.805-0.808 1.805-1.805v-1.744h24.782v1.744c0 0.997 0.808 1.805 1.805 1.805s1.805-0.808 1.805-1.805v-1.744h2.406c2.587 0 4.692-2.104 4.692-4.692v-4.872c0-1.485-0.694-2.81-1.775-3.67zM7.188 3.609h31.82c0.995 0 1.805 0.81 1.805 1.805v8.782h-3.489v-3.489c0-1.99-1.619-3.609-3.609-3.609h-5.304c-1.99 0-3.609 1.619-3.609 3.609v3.489h-3.407v-3.489c0-1.99-1.619-3.609-3.609-3.609h-5.304c-1.99 0-3.609 1.619-3.609 3.609v3.489h-3.489v-8.782c0-0.995 0.81-1.805 1.805-1.805zM28.41 14.195v-3.489h5.304v3.489h-5.304zM12.481 14.195v-3.489h5.304v3.489h-5.304zM42.587 23.759c0 0.597-0.486 1.083-1.083 1.083h-36.812c-0.597 0-1.083-0.486-1.083-1.083v-4.872c0-0.597 0.486-1.083 1.083-1.083h36.812c0.597 0 1.083 0.486 1.083 1.083 0 0 0 4.872 0 4.872z">
@@ -1005,7 +1009,7 @@
         <a href="#"
             class="gtf-back-to-top text-decoration-none bg-body text-primary bg-primary-hover text-light-hover shadow square p-0 rounded-circle d-flex align-items-center justify-content-center"
             title="Back To Top" style="--square-size: 48px"><i class="fa-solid fa-arrow-up"></i></a>
-    </div>
+    </div> --}}
 </body>
 
 <!-- Mirrored from templates.g5plus.net/glowing-bootstrap-5/dashboard/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 18 Feb 2025 07:05:29 GMT -->

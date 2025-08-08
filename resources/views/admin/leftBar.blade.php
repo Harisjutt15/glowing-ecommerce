@@ -42,6 +42,10 @@
                     <a class="sidebar-link pe-5 ps-8 py-5 lh-1 text-decoration-none fs-14px fw-semibold"
                         href="{{ route('admin.category.index') }}" title="Categoried">Categoried</a>
                 </li>
+                <li class="sidebar-item {{ request()->routeIs('admin.category.datatable') ? 'active' : '' }}">
+                    <a class="sidebar-link pe-5 ps-8 py-5 lh-1 text-decoration-none fs-14px fw-semibold"
+                        href="{{ route('admin.category.datatable') }}" title="Categoried">Category Data Table</a>
+                </li>
             </ul>
         </div>
     </li>

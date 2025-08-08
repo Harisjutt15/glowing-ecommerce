@@ -19,17 +19,17 @@ class CategoryController extends Controller
    public function __construct(CategoryService $service) {
         $this->categoryservice = $service;
     }
-    public function index()
-    {
-        $data = [
-            'categories' => Category::orderBy('created_at', 'asc')->get(),
-        ];
-        return view('admin.category.category', $data);
-    }
+    // public function create()
+    // {
+    //     $data = [
+    //         'categories' => Category::orderBy('created_at', 'asc')->get(),
+    //     ];
+    //     return view('admin.category.create', $data);
+    // }
 
     public function create()
     {
-        return view('admin.category.add-category');
+        return view('admin.category.create');
     }
     public function store(Request $request)
     {
@@ -52,7 +52,7 @@ class CategoryController extends Controller
     {
         $category = Category::where('id', $id)->with('images')->first();
 
-        return view('admin.category.add-category')->with('category', $category);
+        return view('admin.category.create')->with('category', $category);
     }
 
     public function delete(Category $id)
@@ -60,9 +60,21 @@ class CategoryController extends Controller
         // dd($id->title);
         // $category=Category::find($id);
         // if($category){
-        $id->delete();
-        // }
-        return redirect()->back();
+            // }
+            // return redirect()->back();
+            try{
+            $id->delete();
+            return response()->json([
+                'success'=>true,
+                'message'=>'success',
+            ]);
+
+        }catch(\Throwable $th){
+            return response()->json([
+                'success'=>false,
+                'message'=>$th->getMessage(),
+            ]);
+        }
     }
     function deleteImage($id)
     {
@@ -95,7 +107,7 @@ class CategoryController extends Controller
         }
     }
 
-    public function datatable(CategoryDataTable $datatable){
-        return $datatable->render('admin.category.datatable');
+    public function index(CategoryDataTable $datatable){
+        return $datatable->render('admin.category.index');
     }
 }

@@ -22,6 +22,12 @@ class CategoryDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+        ->editColumn('action',function($model){
+            $button='';
+            $button .='<a href="'.route('admin.category.edit',['id'=>$model->id]).'" data-bs-toggle="tooltip" title="Edit" data-bs-placement="top"><i class="ti ti-edit"></i></a>';
+            $button.='<a href="javascript:void(0)" onclick="deleteCategory('. $model->id .')" data-bs-toggle="tooltip"  title="Delete" data-bs-placement="top"><i class="ti ti-trash mx-3"></i></a>';
+            return $button;
+        })
             ->addColumn('action', 'category.action')
             ->setRowId('id');
     }
@@ -37,20 +43,16 @@ class CategoryDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         $buttons = [
-            Button::make('collection')->text('<i class="ti ti-screen-share me-1 ti-xs"></i>Export')->addClass('btn btn-label-secondary dropdown-toggle mx-3')->buttons([
-                Button::raw('excel')->text('<i class="ti ti-file-spreadsheet me-2"></i>Excel')->addClass('dropdown-item'),
-                Button::raw('csv')->text('<i class="ti ti-file-text me-2" ></i>Csv')->addClass('dropdown-item'),
-                Button::raw('pdf')->text('<i class="ti ti-file-code-2 me-2"></i>Pdf')->addClass('dropdown-item'),
-                Button::raw('print')->text('<i class="ti ti-printer me-2" ></i>Print')->addClass('dropdown-item'),
-            ]),
+            // Button::make('collection')->text('<i class="ti ti-screen-share me-1 ti-xs"></i>Export')->addClass('btn btn-label-secondary dropdown-toggle mx-3')->buttons([
+            //     Button::raw('excel')->text('<i class="ti ti-file-spreadsheet me-2"></i>Excel')->addClass('dropdown-item'),
+            //     Button::raw('csv')->text('<i class="ti ti-file-text me-2" ></i>Csv')->addClass('dropdown-item'),
+            //     Button::raw('pdf')->text('<i class="ti ti-file-code-2 me-2"></i>Pdf')->addClass('dropdown-item'),
+            //     Button::raw('print')->text('<i class="ti ti-printer me-2" ></i>Print')->addClass('dropdown-item'),
+            // ]),
         ];
         // check user create permission
         $buttons[] = [
-            Button::make()->text('<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Add New Type</span>')->addClass('add-new btn btn-primary')
-                ->attr([
-                    'onclick' => 'create()',
-                ]),
-                Button::make()->text('<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Add New Type</span>')->addClass('add-new btn btn-primary')
+            Button::make()->text('<i class="ti ti-plus btn btn-primary">Add New Type</i>')->addClass('')
                 ->attr([
                     'onclick' => 'create()',
                 ]),

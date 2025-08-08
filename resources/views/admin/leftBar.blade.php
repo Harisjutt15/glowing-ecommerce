@@ -34,18 +34,18 @@
         <div class="collapse menu-collapse show {{ request()->routeIs('admin.category.*') ? 'show' : '' }} "
             id="categories_tab">
             <ul class="sub-menu list-unstyled ">
-                <li class="sidebar-item {{ request()->routeIs('admin.category.create') ? 'active' : '' }}">
-                    <a class="sidebar-link pe-5 ps-8 py-5 lh-1 text-decoration-none fs-14px fw-semibold"
-                        href="{{ route('admin.category.create') }}" title="Categoried">Add Category</a>
-                </li>
                 <li class="sidebar-item {{ request()->routeIs('admin.category.index') ? 'active' : '' }}">
                     <a class="sidebar-link pe-5 ps-8 py-5 lh-1 text-decoration-none fs-14px fw-semibold"
                         href="{{ route('admin.category.index') }}" title="Categoried">Categoried</a>
                 </li>
-                <li class="sidebar-item {{ request()->routeIs('admin.category.datatable') ? 'active' : '' }}">
+                <li class="sidebar-item {{ request()->routeIs('admin.category.create') ? 'active' : '' }}">
+                    <a class="sidebar-link pe-5 ps-8 py-5 lh-1 text-decoration-none fs-14px fw-semibold"
+                        href="{{ route('admin.category.create') }}" title="Categoried">Add Category</a>
+                </li>
+                {{-- <li class="sidebar-item {{ request()->routeIs('admin.category.datatable') ? 'active' : '' }}">
                     <a class="sidebar-link pe-5 ps-8 py-5 lh-1 text-decoration-none fs-14px fw-semibold"
                         href="{{ route('admin.category.datatable') }}" title="Categoried">Category Data Table</a>
-                </li>
+                </li> --}}
             </ul>
         </div>
     </li>

@@ -35,11 +35,14 @@
      
         
         
+        {{-- <table class="table table-bordered "> {{ $dataTable->table() }}</table> --}}
         <div class="row">
-            <div class="table-responsive">
-                {{-- <table class="table table-bordered "> {{ $dataTable->table() }}</table> --}}
+            {{-- <div class="table-responsive" id="category-datatable"> --}}
+                <table id="dataTableBuilder" class="table table-bordered">
+
                 {!! $dataTable->table(['class' => 'table table-bordered']) !!}
-            </div>
+                </table>
+            {{-- </div> --}}
         </div>
     </div>
 @endsection
@@ -63,4 +66,5 @@
 
     <!-- DataTable initialization -->
     {!! $dataTable->scripts() !!}
+    @include('admin.category.script')
 @endsection

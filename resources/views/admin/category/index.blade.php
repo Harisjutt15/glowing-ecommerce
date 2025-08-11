@@ -25,7 +25,7 @@
             <div class="col-xxl-9">
                 <div class="row">
                     <div class="col-sm-6 mb-8 mb-sm-0">
-                        <h2 class="fs-4 mb-0"> Category Data Table</h2>
+                        {{-- <h2 class="fs-4 mb-0"> Category Data Table</h2> --}}
                     </div>
 
                 </div>
@@ -34,15 +34,11 @@
 
      
         
-        
-        {{-- <table class="table table-bordered "> {{ $dataTable->table() }}</table> --}}
         <div class="row">
-            {{-- <div class="table-responsive" id="category-datatable"> --}}
-                <table id="dataTableBuilder" class="table table-bordered">
-
-                {!! $dataTable->table(['class' => 'table table-bordered']) !!}
+                <table id="developers-table" class="table table-bordered">
+                {{-- {!! $dataTable->table(['class' => 'table table-bordered']) !!} --}}
+                {!! $dataTable->table() !!}
                 </table>
-            {{-- </div> --}}
         </div>
     </div>
 @endsection

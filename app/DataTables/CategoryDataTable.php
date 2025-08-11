@@ -25,19 +25,25 @@ class CategoryDataTable extends DataTable
         ->editColumn('action',function($model){
             $button='';
             $button .='<a href="'.route('admin.category.edit',['id'=>$model->id]).'" data-bs-toggle="tooltip" title="Edit" data-bs-placement="top"><i class="ti ti-edit"></i></a>';
-            $button.='<a href="javascript:void(0)" onclick="deleteCategory('. $model->id .')" data-bs-toggle="tooltip"  title="Delete" data-bs-placement="top"><i class="ti ti-trash mx-3"></i></a>';
+            // $button.='<a href="javascript:void(0)" onclick="deleteCategory('. $model->id .')" data-bs-toggle="tooltip"  title="Delete" data-bs-placement="top"><i class="ti ti-trash mx-3"></i></a>';
+            $button.='<a href="javascript:void(0)" class="delete-category" data-id="'. $model->id .'" data-bs-toggle="tooltip"  title="Delete on click" data-bs-placement="top"><i class="ti ti-trash mx-3"></i></a>';
             return $button;
         })
+        ->editColumn('show_on_home',function($model){
+            return ' <div class="form-check form-switch "> <input class="form-check-input showOnHome" type="checkbox" data-id="'.$model->id.'" role="switch"  '.($model->show_on_home ? 'checked' : '').'> </div>';
+            // return '<input class="form-switch-input" type="switch" onclick="oraclePosting('.$model->id.', this)" '.($model->show_on_home ? 'checked' : '').'>';
+        })
             ->addColumn('action', 'category.action')
-            ->setRowId('id');
+            ->rawColumns(['show_on_home','action'])
+            ->setRowId('id')->addIndexColumn();
     }
 
 
     public function query(Category $model): QueryBuilder
     {
         // return $model->newQuery()->orderBy('id','Asc');
-        return $model->newQuery();
-        // return $model->orderBy('id');
+        return $model->newQuery()
+        ->orderBy('created_at', 'ASC');
     }
 
     public function html(): HtmlBuilder
@@ -50,22 +56,21 @@ class CategoryDataTable extends DataTable
             //     Button::raw('print')->text('<i class="ti ti-printer me-2" ></i>Print')->addClass('dropdown-item'),
             // ]),
         ];
-        // check user create permission
         $buttons[] = [
-            Button::make()->text('<i class="ti ti-plus btn btn-primary">Add New Type</i>')->addClass('')
+            Button::make()->text('<i class="ti ti-plus">Add New Type</i>')->addClass('')
                 ->attr([
                     'onclick' => 'create()',
                 ]),
         ];
         return $this->builder()
             ->setTableId('category-table')
-            // ->addTableClass();   here we can give clas to data tables
+             //->addTableClass('table table-bordered')  // here we can give clas to data tables
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->dom(
-                '<"row me-2 border border-danger"' .
-                    '<"col-md-2 border border-warning"<"me-3"l>>' .
-                    '<"col-md-10 border border-warning"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"fB>>' .
+                '<"row me-2"' .
+                    '<"col-md-2"<"me-3"l>>' .
+                    '<"col-md-10 "<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"fB>>' .
                     '>t' .
                     '<"row mx-2"' .
                     '<"col-sm-12 col-md-6"i>' .
@@ -81,6 +86,7 @@ class CategoryDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::computed('DT_RowIndex')->title('#'),
             Column::make('id'),
             Column::make('title'),
             Column::make('slug'),

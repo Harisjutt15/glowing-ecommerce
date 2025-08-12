@@ -64,6 +64,10 @@
             <ul class="sub-menu list-unstyled">
                 <li class="sidebar-item">
                     <a class="sidebar-link pe-5 ps-8 py-5 lh-1 text-decoration-none fs-14px fw-semibold"
+                        href="{{ route('admin.product.index.datatable') }}" title="Product List">Product </a>
+                </li> 
+                <li class="sidebar-item">
+                    <a class="sidebar-link pe-5 ps-8 py-5 lh-1 text-decoration-none fs-14px fw-semibold"
                         href="{{ route('admin.product.index') }}" title="Product List">Product List</a>
                 </li>
                 <li class="sidebar-item">

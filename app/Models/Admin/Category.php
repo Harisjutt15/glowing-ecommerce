@@ -20,7 +20,7 @@ class Category extends Model
     ];
 
     protected $casts = [
-        'show_on_home' => 'boolean'
+        'show_on_home' => 'boolean',
     ];
       
     public function images()

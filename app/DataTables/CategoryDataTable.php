@@ -4,6 +4,7 @@ namespace App\DataTables;
 
 use App\Models\Admin\Category;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Illuminate\Support\Carbon;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
@@ -32,6 +33,10 @@ class CategoryDataTable extends DataTable
         ->editColumn('show_on_home',function($model){
             return ' <div class="form-check form-switch "> <input class="form-check-input showOnHome" type="checkbox" data-id="'.$model->id.'" role="switch"  '.($model->show_on_home ? 'checked' : '').'> </div>';
             // return '<input class="form-switch-input" type="switch" onclick="oraclePosting('.$model->id.', this)" '.($model->show_on_home ? 'checked' : '').'>';
+        })
+        ->editColumn('created_at',function($model){
+            return  $model->created_at->format(' d-M-Y');
+            // return $model->created_at->diffForHumans();
         })
             ->addColumn('action', 'category.action')
             ->rawColumns(['show_on_home','action'])

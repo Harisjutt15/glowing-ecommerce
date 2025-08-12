@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\ProductDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Category;
 use App\Models\Admin\Product;
@@ -18,7 +19,12 @@ class ProductController extends Controller
     public function __construct(ProductService $product){
         $this->productservice=$product;
     }
-    public function index(){
+
+    public function index(ProductDataTable $datatable){
+        return $datatable->render('admin.product.data-table');
+
+    }
+    public function indexTemplate(){
     $product=Product::with('images')->get();
         $data=[
             'products'=>$product,

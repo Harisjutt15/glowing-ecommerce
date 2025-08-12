@@ -18,6 +18,11 @@ class Category extends Model
         'image',
         'show_on_home',
     ];
+
+    protected $casts = [
+        'show_on_home' => 'boolean'
+    ];
+      
     public function images()
     {
         return $this->morphMany(Image::class, 'modelable');

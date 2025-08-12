@@ -45,6 +45,7 @@ Route::group(['prefix'=> 'admin','as'=> 'admin.'], function () {
         Route::get('/delete-Image/{id}',[CategoryController::class,'deleteImage'])->name('deleteImage');
         Route::get('/download-Image/{id}',[CategoryController::class,'download'])->name('download');
         Route::get('/datatable',[CategoryController::class ,'datatable'])->name('datatable');
+        Route::post('/show-on-home',[CategoryController::class ,'showOnHome'])->name('show-on-home');
     });
 });
 

@@ -4,10 +4,70 @@
     }
     $(document).ready(function() {
 
+//         $.ajaxSetup({
+//     headers: {
+//         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//     }
+// });
+
+
+
+
         $(document).on('click', '.showOnHome', function(e) {
             e.preventDefault();
             var id = $(this).data('id');
-            console.log(id);
+            let check = ($(this).is(':checked') ? 'Enable' : 'Disable') + " To Show on Home";
+            // console.log(check);
+            Swal.fire({
+                title: check,
+                icon: 'question',
+                text: 'Are You Sure ?',
+                showCancelButton: true,
+                cancelButtonText: 'Deny',
+                confirmButtonText: 'Proceed',
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: 'btn btn-outline-success waves-effect waves-float waves-light me-1',
+                    cancelButton: 'btn btn-outline-danger waves-effect waves-float waves-light me-1'
+                }
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    let data = {
+                        id: id,
+                        bdm_check: $(this).is(':checked'),
+                    };
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('admin.category.show-on-home') }}",
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                                'content')
+                        },
+                        data: {
+                            id: id,
+                            bdm_check: $(this).is(':checked'),
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                console.log('success');
+                                
+                                window.LaravelDataTables['category-table'].ajax
+                                        .reload(null,
+                                            false);
+
+                            }
+                        },
+                        error: function(err) {
+                            // console.log(err.message);
+
+                            console.log('Something went Wrong');
+                        }
+                    });
+
+
+
+                }
+            });
 
         });
 

@@ -6,6 +6,7 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <meta charset="UTF-8">
     <meta name="viewport"

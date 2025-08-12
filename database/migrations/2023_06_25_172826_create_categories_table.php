@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
             $table->longText('description')->nullable();
-            $table->boolean('show_on_home')->default(false);
+            $table->boolean('show_on_home')->default(false)->nullable();
             $table->timestamps();
         });
     }

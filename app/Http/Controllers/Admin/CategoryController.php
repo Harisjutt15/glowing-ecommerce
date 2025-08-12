@@ -15,8 +15,9 @@ use catDataTable as GlobalCatDataTable;
 
 class CategoryController extends Controller
 {
-   protected $categoryservice;
-   public function __construct(CategoryService $service) {
+    protected $categoryservice;
+    public function __construct(CategoryService $service)
+    {
         $this->categoryservice = $service;
     }
     // public function create()
@@ -41,9 +42,9 @@ class CategoryController extends Controller
             // 'discount_price' => 'required',
         ]);
         try {
-            $this->categoryservice->store($request);     
+            $this->categoryservice->store($request);
         } catch (\Throwable $th) {
-            
+
             return redirect()->back()->withErrors($th->getMessage());
         }
         return redirect()->route('admin.category.index');
@@ -60,19 +61,18 @@ class CategoryController extends Controller
         // dd($id->title);
         // $category=Category::find($id);
         // if($category){
-            // }
-            // return redirect()->back();
-            try{
+        // }
+        // return redirect()->back();
+        try {
             $id->delete();
             return response()->json([
-                'success'=>true,
-                'message'=>'success',
+                'success' => true,
+                'message' => 'success',
             ]);
-
-        }catch(\Throwable $th){
+        } catch (\Throwable $th) {
             return response()->json([
-                'success'=>false,
-                'message'=>$th->getMessage(),
+                'success' => false,
+                'message' => $th->getMessage(),
             ]);
         }
     }
@@ -107,7 +107,29 @@ class CategoryController extends Controller
         }
     }
 
-    public function index(CategoryDataTable $datatable){
+    public function index(CategoryDataTable $datatable)
+    {
         return $datatable->render('admin.category.index');
+    }
+
+
+    public function showOnHome(Request $request)
+    {
+        $data = Category::find($request->id);
+        if ($data) {
+
+            $data->show_on_home = !$data->show_on_home;
+
+            $data->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => "Data updated Successfully",
+            ]);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => "Unable to find Data",
+        ]);
     }
 }

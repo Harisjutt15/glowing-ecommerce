@@ -35,7 +35,7 @@
      
         
         <div class="row">
-                <table id="developers-table" class="table table-bordered">
+                <table id="" class="table table-bordered">
                 {{-- {!! $dataTable->table(['class' => 'table table-bordered']) !!} --}}
                 {!! $dataTable->table() !!}
                 </table>

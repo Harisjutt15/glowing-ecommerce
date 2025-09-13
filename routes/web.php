@@ -34,6 +34,9 @@ Route::group(['prefix'=> 'admin','as'=> 'admin.'], function () {
         Route::get('/create',[ProductController::class,'create'])->name('create');
         Route::post('/store',[ProductController::class,'store'])->name('store');
         Route::get('/edit/{id}',[ProductController::class,'edit'])->name('edit');
+        Route::get('/product-delete/{id}',[ProductController::class,'delete'])->name('delete');
+        Route::post('/show-on-home',[ProductController::class ,'showOnHome'])->name('show-on-home');
+
         Route::get('/encrpt',[ProductController::class,'encrpt'])->name('encrpt');
     });
 

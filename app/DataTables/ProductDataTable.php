@@ -22,7 +22,18 @@ class ProductDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'product.action')
+        ->editColumn('show_on_home',function($mode){
+            return '<div class="form-check form-switch"><input class="form-check-input producyShoeOnHome" type="checkbox" data-id="'.$mode->id.'" role="switch" '.($mode->show_on_home ? 'checked' : '').'></div>  ';
+            return ' <div class="form-check form-switch "> <input class="form-check-input showOnHome" type="checkbox" data-id="'.$model->id.'" role="switch"  '.($model->show_on_home ? 'checked' : '').'> </div>';
+        })
+        ->editColumn('action',function($model){
+            $button='';
+            $button.='<a href="'.route('admin.product.edit',['id'=>$model->id]).'" data-bs-toggle="tooltip" data-bs-placement="top"  title="Edit"><i class="ti ti-edit"></i></a>';
+            $button.='<a class="mx-2 deleteProduct" href="javascript:void(0)" data-id='.$model->id.' data-bs-placement="top"  data-bs-toggle="tooltip" title="Delete"><i class="ti ti-trash "></i></a>  ';
+            return $button;
+        })
+             
+            ->rawColumns(['show_on_home','action'])
             ->setRowId('id')->addindexColumn();
     }
 

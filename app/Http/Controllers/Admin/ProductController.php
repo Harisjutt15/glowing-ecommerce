@@ -80,4 +80,37 @@ class ProductController extends Controller
 
         return view('admin.product.add-product',$data);
     }
+
+    public function showOnHome(Request $request){
+        // dd($request->all());
+        $record=Product::find($request->id);
+        if(!$record){
+            return response()->json([
+                'success'=>false,
+                'message'=>'Record Not Found',
+            ]);
+        }
+        $record->show_on_home=$request->is_checked ?? '';
+        $record->save();
+        return response()->json([
+            'success'=>true,
+            'message'=>'Data Updated Successfully',
+        ]);
+    }
+
+    public function delete(Product $id){
+        try {
+            $id->delete();
+    
+            return response()->json([
+                'success' => true,
+                'message' => 'success',
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
+            ]);
+        }
+    }
 }

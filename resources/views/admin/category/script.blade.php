@@ -4,11 +4,6 @@
     }
     $(document).ready(function() {
 
-//         $.ajaxSetup({
-//     headers: {
-//         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//     }
-// });
 
 
 
@@ -50,10 +45,10 @@
                         success: function(response) {
                             if (response.success) {
                                 console.log('success');
-                                
+
                                 window.LaravelDataTables['category-table'].ajax
-                                        .reload(null,
-                                            false);
+                                    .reload(null,
+                                        false);
 
                             }
                         },
@@ -126,8 +121,89 @@
 
             });
 
-        // function deleteCategory(id) {
-        // }
+
 
     });
+
+    function categoryModel(id = null, field = 'all', size = 'large') {
+        // console.log('geet clicked', id);
+        $.ajax({
+            url: "{{ route('admin.category.editCatModel', ':id') }}".replace(':id', id),
+            type: "GET",
+            headers: {
+                'X-CSRF-Token': '{{ csrf_token() }}'
+            },
+            success: function(res) {
+                if (res.success) {
+                    $("#categoryTitle").val(res.data.title);
+                    // $("$catShowOnHome").val(res.data.show_on_home);
+                    var val = res.data.show_on_home ? '1' : '0';
+                    // console.log(res.data.show_on_home ,val);
+
+                    $('#catShowOnHome').val(val);
+                    $('#catDescription').val(res.data.description);
+                    $('#categoryID').val(res.data.id)
+
+                    $("#quickViewModal").modal('show');
+                    console.log(res.message);
+                    console.log(res.data);
+
+
+
+                }
+            },
+            error: function(err) {
+                console.log('Some thing went wrong');
+
+            }
+
+        });
+
+    }
+
+    $("#category-model-form").on('submit', function(e) {
+        e.preventDefault();
+        $("#category-submit-btn").prop('disabled', true);
+        console.log('form submit');
+        let data = $(this).serialize();
+        console.log(data);
+        let url = "{{ route('admin.category.model-store') }}";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            success: function(res) {
+                $("#quickViewModal").modal('hide');
+                $('#category-model-form')[0].reset();
+                console.log('success');
+                window.LaravelDataTables['category-table'].ajax.reload(null, false);
+
+            },
+            error: function(xhr) {
+                console.log('this', xhr);
+                $("#category-submit-btn").prop('disabled', false);
+                   $('.text-danger').remove();
+                if (xhr.status === 422 && xhr.responseJSON.errors) {
+                    let errors = xhr.responseJSON.errors;
+
+                    $.each(errors, function(field, messages) {
+                        let input = $(`[name="${field}"]`);
+                        input.closest('.form-check, .form-group, .form-input-wrapper').find(
+                            '.text-danger').remove();
+
+
+                        input.after(
+                            `<small class="text-danger d-block mt-1">${messages[0]}</small>`
+                        );
+
+                    });
+                }
+
+            }
+        });
+
+    })
 </script>

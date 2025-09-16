@@ -35,12 +35,60 @@
      
         
         <div class="row">
-                <table id="developers-table" class="table table-bordered">
+            <table id="developers-table" class="table table-bordered">
                 {{-- {!! $dataTable->table(['class' => 'table table-bordered']) !!} --}}
                 {!! $dataTable->table() !!}
-                </table>
+            </table>
         </div>
     </div>
+
+
+
+
+
+    <div class="modal fade" id="quickViewModal" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header border-0 py-5">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-0">
+                    <form action="javascript:void(0)" id="category-model-form">
+                         <input type="hidden"  name="id" class="form-control"
+                                    id="categoryID" value=" ">
+                        <div class="row ">
+                            <h3>Edit Category</h3>
+                            <div class="col-lg-6"> <label for="" class="mb-4 fs-13px ls-1 fw-bold text-uppercase">
+                                    Title</label>
+                                <input type="text" placeholder="Enter Title of Category" name="title" class="form-control"
+                                    id="categoryTitle" value=" ">
+                            </div>
+                            <div class="col-lg-6"> <label for="" class="mb-4 fs-13px ls-1 fw-bold text-uppercase">
+                                    <label for="" class="mb-4 fs-13px ls-1 fw-bold text-uppercase">
+                                        Show on home</label>
+                                    <select name="show_on_home" id="catShowOnHome" class="form-select" id="">
+                                        <option value="0">False</option>
+                                        <option value="1">True</option>
+                                    </select>
+                            </div>
+                            <div class="col-lg-7">
+                                <label class="mb-4 fs-13px ls-1 fw-bold text-uppercase">Full description</label>
+                                <textarea placeholder="Type here" class="form-control" rows="4" id="catDescription" name="description"
+                                    value=""></textarea>
+                            </div>
+                              <div class="col-lg-6 mt-3">
+                               <button class="btn btn-primary" type="submit" id="category-submit-btn">Update</button>
+                              </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
 @endsection
 
 @section('script')
@@ -63,4 +111,6 @@
     <!-- DataTable initialization -->
     {!! $dataTable->scripts() !!}
     @include('admin.category.script')
+
+    <script></script>
 @endsection

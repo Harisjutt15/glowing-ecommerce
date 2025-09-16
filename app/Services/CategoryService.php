@@ -15,9 +15,10 @@ class CategoryService
             'title' => $request->title ?? '',
             'slug' => Str::slug($request->title ?? ''),
             'description' => $request->description ?? '',
-            'show_on_home' => $request->show_on_home ?? false,
+            'show_on_home' => $request->boolean('show_on_home') ?? false,
 
         ];
+        // dd($data['show_on_home']);
         $category = Category::UpdateOrCreate([
             'id' => $request->id,
 

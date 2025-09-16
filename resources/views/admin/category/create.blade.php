@@ -40,8 +40,8 @@
                                         <label for="" class="mb-4 fs-13px ls-1 fw-bold text-uppercase">
                                             Show on home</label>
                                             <select name="show_on_home" class="form-select" id="">
-                                                <option  value="FALSE" {{ old('show_on_home',$category->show_on_home ?? '') == false ? 'selected' : '' }}>False</option>
-                                                <option value="TRUE" {{ old('show_on_home',$category->show_on_home ?? '')== true ? 'selected' : '' }}>True</option>
+                                                <option  value="0" {{ old('show_on_home',$category->show_on_home ?? '') == false ? 'selected' : '' }}>False</option>
+                                                <option value="1" {{ old('show_on_home',$category->show_on_home ?? '')== true ? 'selected' : '' }}>True</option>
                                             </select>
                                     </div>
                                     <div class="mb-8">

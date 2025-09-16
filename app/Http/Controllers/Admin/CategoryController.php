@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Services\CategoryService;
+use Exception;
+use Illuminate\Validation\ValidationException;
 use catDataTable as GlobalCatDataTable;
 
 class CategoryController extends Controller
@@ -34,6 +36,7 @@ class CategoryController extends Controller
     }
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'title' => 'required| unique:products,title',
             'description' => 'required',
@@ -49,11 +52,53 @@ class CategoryController extends Controller
         }
         return redirect()->route('admin.category.index');
     }
+
+
+    public function modelStore(Request $request)
+    {
+        // dd($request->all());
+        try {
+            $request->validate([
+                'title'=>'required',
+                'description'=>'required',
+                'show_on_home'=>'required',
+            ]);
+            $this->categoryservice->store($request);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+        return response()->json(['success' => true, 'message' => 'Data Updated Successfully']);
+    }
     public function edit($id)
     {
         $category = Category::where('id', $id)->with('images')->first();
 
         return view('admin.category.create')->with('category', $category);
+    }
+    public function editCatModel($id)
+    {
+        $data = Category::find($id);
+        if (!$data) {
+            return response()->json([
+                'success' => false,
+                'message' => "Data not Found",
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => "Data Found",
+            'data' => $data,
+        ]);
+        // dd($id);
     }
 
     public function delete(Category $id)

@@ -26,6 +26,7 @@ class CategoryDataTable extends DataTable
         ->editColumn('action',function($model){
             $button='';
             $button .='<a href="'.route('admin.category.edit',['id'=>$model->id]).'" data-bs-toggle="tooltip" title="Edit" data-bs-placement="top"><i class="ti ti-edit"></i></a>';
+             $button .='<a href="javaScript:void(0)" data-bs-toggle="tooltip" title="Edit Model" onClick="categoryModel('.$model->id.')" data-bs-placement="top"> <i class="ti ti-pencil-discount"></i></a>';
             // $button.='<a href="javascript:void(0)" onclick="deleteCategory('. $model->id .')" data-bs-toggle="tooltip"  title="Delete" data-bs-placement="top"><i class="ti ti-trash mx-3"></i></a>';
             $button.='<a href="javascript:void(0)" class="delete-category" data-id="'. $model->id .'" data-bs-toggle="tooltip"  title="Delete on click" data-bs-placement="top"><i class="ti ti-trash mx-3"></i></a>';
             return $button;
@@ -92,9 +93,9 @@ class CategoryDataTable extends DataTable
     {
         return [
             Column::computed('DT_RowIndex')->title('#'),
-            Column::make('id'),
+            // Column::make('id'),
             Column::make('title'),
-            Column::make('slug'),
+            // Column::make('slug'),
             Column::make('show_on_home'),
             Column::make('created_at')->searchable(false),
             Column::make('action')->orderable(false)->searchable(false),

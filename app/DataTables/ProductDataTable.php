@@ -74,7 +74,7 @@ class ProductDataTable extends DataTable
     {
         return [
             COlumn::computed('DT_RowIndex')->title('#'),
-            Column::make('id'),
+            // Column::make('id'),
             Column::make('title'),
             Column::make('slug'),
             Column::make('show_on_home'),
